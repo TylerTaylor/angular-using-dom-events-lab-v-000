@@ -7,8 +7,17 @@ function Counter() {
 				'<div>Current count: {{ count }}</div>',
 			'</div>'
 		].join(''),
-		controller: function ($scope) {
+		link: function ($scope, element) {
 			$scope.count = 0;
+
+			element.on('click', function() {
+				$scope.count++;
+				$scope.$apply()
+			})
+
+			$scope.$on('$destroy', function() {
+				element.off();
+			})
 		}
 	}
 }
